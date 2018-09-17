@@ -12,6 +12,11 @@ class GithubJob extends Component {
             };
         }
 
+       /*  
+       ** onClick will launch getJobs 
+       ** It will search repositories from github with given 2 parameters "location" and "skill"
+       ** jobList gets response from json
+       */
         getJobs= () =>{
             const url = 'https://jobs.github.com/positions.json?description='
             +this.state.skill+'&location='+ this.state.location;
@@ -27,7 +32,7 @@ class GithubJob extends Component {
             }); 
         }
 
-
+        // this function use styling from style.js file to make FlatList printing more prettier
         listSeparator = () => {
             return (
               <View
@@ -42,16 +47,21 @@ class GithubJob extends Component {
             return (
 
             <View>
+
+                {/* Input field text is placed to: this.state.skill*/}
                 <Text style={styles.text1}>Skill/keyword</Text>
                 <TextInput style={styles.textInput}
                 onChangeText={(skill) => this.setState({skill})}value={this.state.skill}/>
 
+                {/* Input field text is placed to: this.state.location*/}
                 <Text style={styles.text1}>Location</Text>
                 <TextInput style={styles.textInput}
                 onChangeText={(location) => this.setState({location})}value={this.state.location}/>
 
-                <Button onPress={this.getJobs} onChangeText={this.inputChanged} title="Search"/>
+                {/* uses this.getJobs function*/}
+                <Button onPress={this.getJobs} title="Search"/>
                 
+                {/* FlatList contains value fetched from githubApi*/}
                 <FlatList style={{marginLeft : "5%"}}
                     keyExtractor={item => item.id} 
                     renderItem={({item}) => 
